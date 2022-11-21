@@ -24,9 +24,10 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: "16"
-          cache: "npm"
-          cache-dependency-path: "npm-packages/x-utils"
-          registry-url: 'https://npm.pkg.github.com'
+      - name: Install Node dependencies
+        run: |
+          cd npm-packages/x-utils
+          npm ci
       - name: Semantic Release
         uses: cycjimmy/semantic-release-action@v3
         with:
