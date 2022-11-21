@@ -1,6 +1,6 @@
 {
   "name": "@polyflix/vtt-parser",
-  "version": "1.3.2",
+  "version": "1.4.0",
   "description": "A simple VTT file parser for the Polyflix project from Polytech",
   "main": "dist/index.js",
   "files": [
