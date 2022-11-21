@@ -15,10 +15,15 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v3
-      - name: Move config to current package
-        run: | 
-          mv .github/.releaserc npm-packages/x-utils/
-          mv .github/.npmrc npm-packages/x-utils/
+        with:
+          path: ".github"
+      - uses: actions/checkout@v3
+        with:
+          path: npm-packages/x-utils/"
+      # - name: Move config to current package
+      #   run: | 
+      #     mv .github/.releaserc npm-packages/x-utils/
+      #     mv .github/.npmrc npm-packages/x-utils/
 
       # - name: Edit current directory
       #   run: cd npm-packages/x-utils
@@ -36,7 +41,6 @@ jobs:
           extra_plugins: |
             @semantic-release/changelog@6.0.1
             @semantic-release/git
-          working_directory: ./npm-packages/x-utils
         env:
           PACKAGE_NAME: x-utils
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
