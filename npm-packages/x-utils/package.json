@@ -1,6 +1,6 @@
 {
   "name": "@polyflix/x-utils",
-  "version": "1.8.2",
+  "version": "1.9.0",
   "description": "NestJS utilities for Polyflix from Polytech",
   "main": "dist/index.js",
   "files": [
