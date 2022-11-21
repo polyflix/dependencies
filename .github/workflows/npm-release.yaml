@@ -18,14 +18,14 @@ jobs:
       - name: Move releaserc config
         run: mv .github/.releaserc npm-packages/x-utils/
 
-      - name: Edit current directory
-        run: cd npm-packages/x-utils
-      - name: Use Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: "16"
-          cache: "npm"
-          registry-url: 'https://npm.pkg.github.com'
+      # - name: Edit current directory
+      #   run: cd npm-packages/x-utils
+      # - name: Use Node.js
+      #   uses: actions/setup-node@v3
+      #   with:
+      #     node-version: "16"
+      #     cache: "npm"
+      #     registry-url: 'https://npm.pkg.github.com'
       - name: Semantic Release
         uses: cycjimmy/semantic-release-action@v3
         with:
