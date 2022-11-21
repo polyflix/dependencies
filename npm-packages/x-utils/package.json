@@ -1,0 +1,41 @@
+{
+  "name": "@polyflix/x-utils",
+  "version": "1.7.1",
+  "description": "NestJS utilities for Polyflix from Polytech",
+  "main": "dist/index.js",
+  "files": [
+    "dist/**/*",
+    "*.md"
+  ],
+  "scripts": {
+    "prepare": "npm run build",
+    "build": "tsc",
+    "test": "jest --passWithNoTests",
+    "test:ci": "jest --ci --passWithNoTests",
+    "test:watch": "jest --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "peerDependencies": {
+    "axios": "^0.21.1"
+  },
+  "devDependencies": {
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/gitlab": "^9.3.2",
+    "@semantic-release/npm": "^9.0.1",
+    "@types/jest": "^26.0.23",
+    "@types/node": "^15.6.1",
+    "jest": "^27.0.3",
+    "semantic-release": "^19.0.2",
+    "ts-jest": "^27.0.1",
+    "typescript": "^4.3.2"
+  },
+  "dependencies": {
+    "@nestjs/common": "^8.4.4",
+    "@nestjs/config": "^2.0.0",
+    "@nestjs/core": "^8.4.4",
+    "@nestjs/microservices": "^8.4.4",
+    "express": "^4.18.1"
+  }
+}
