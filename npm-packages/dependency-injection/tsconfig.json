@@ -1,0 +1,23 @@
+{
+    "compilerOptions": {
+      "lib": [
+        "ESNext"
+      ],
+      "target": "es5",
+      "module": "commonjs",
+      "declaration": true,
+      "outDir": "./dist",
+      "removeComments": true,
+      "moduleResolution": "node",
+      "types": [
+        "reflect-metadata"
+      ],                    
+      "esModuleInterop": true,
+      "experimentalDecorators": true,
+      "emitDecoratorMetadata": true,
+      "skipLibCheck": true,
+      "forceConsistentCasingInFileNames": true
+    },
+    "include": ["src/**/*.ts"],
+    "exclude": ["node_modules"]
+  }
