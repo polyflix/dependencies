@@ -1,6 +1,6 @@
 {
   "name": "@polyflix/quizz-parser",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "A Quizz file parser for the Polyflix project from Polytech",
   "main": "dist/index.js",
   "files": [
