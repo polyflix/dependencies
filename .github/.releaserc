@@ -1,6 +1,7 @@
 {
   "tagFormat": "${process.env.PACKAGE_NAME}-v${version}",
   "commitPaths": "npm-packages//${process.env.PACKAGE_NAME}/*",
+  "branches": ["main"],
   "plugins": [
     [
       "@semantic-release/git",
