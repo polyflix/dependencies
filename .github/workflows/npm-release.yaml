@@ -15,8 +15,10 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v3
-      - name: Move releaserc config
-        run: mv .github/.releaserc npm-packages/x-utils/
+      - name: Move config to current package
+        run: | 
+          mv .github/.releaserc npm-packages/x-utils/
+          mv .github/.npmrc npm-packages/x-utils/
 
       # - name: Edit current directory
       #   run: cd npm-packages/x-utils
