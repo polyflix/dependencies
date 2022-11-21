@@ -3,22 +3,27 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
-    inputs:
-      package:
-        required: true
-        type: string
 
 jobs:
+  generate-matrix:
+    name: Generate matrix of updated packages
+    runs-on: ubuntu-latest
+    outputs:
+      matrix-npm: ${{ steps.neo-npm.outputs.matrix }}
+    steps:
+      - name: Generate matrix | Infrastructure
+        id: neo-npm
+        uses: hellofresh/action-changed-files@v2
+        with:
+            pattern: npm-packages/(?P<package>[^/]+)
+
   publish:
     runs-on: ubuntu-22.04
+    needs: [generate-matrix]
     strategy:
-      matrix:
-        # Add an item here when you create a new NPM package
-        package:
-          - x-utils
-          - vtt-parser
-          - quizz-parser
-          - dependency-injection
+      max-parallel: 1
+      matrix: ${{ fromJson(needs.generate-matrix.outputs.matrix-npm) }}
+    if: ${{ fromJson(needs.generate-matrix.outputs.matrix-npm).include[0] }}
     steps:
       - uses: actions/checkout@v3
       - name: Move config to current package
