@@ -16,9 +16,9 @@ jobs:
         # Add an item here when you create a new NPM package
         package:
           - x-utils
-          # - vtt-parser
-          # - quizz-parser
-          # - dependency-injection
+          - vtt-parser
+          - quizz-parser
+          - dependency-injection
     steps:
       - uses: actions/checkout@v3
       - name: Move config to current package

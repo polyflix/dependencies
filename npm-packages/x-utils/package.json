@@ -21,13 +21,9 @@
     "axios": "^0.21.1"
   },
   "devDependencies": {
-    "@semantic-release/git": "^10.0.1",
-    "@semantic-release/gitlab": "^9.3.2",
-    "@semantic-release/npm": "^9.0.1",
     "@types/jest": "^26.0.23",
     "@types/node": "^15.6.1",
     "jest": "^27.0.3",
-    "semantic-release": "^19.0.2",
     "ts-jest": "^27.0.1",
     "typescript": "^4.3.2"
   },
