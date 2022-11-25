@@ -15,7 +15,7 @@ jobs:
         id: neo-npm
         uses: hellofresh/action-changed-files@v2
         with:
-            pattern: npm-packages/(?P<package>[^/]+)
+          pattern: npm-packages/(?P<package>(?!.releaserc)[^/]+)
 
   publish:
     runs-on: ubuntu-22.04
@@ -27,9 +27,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Move config to current package
-        run: | 
-          mv .github/.releaserc npm-packages/${{ matrix.package }}/
-          mv .github/.npmrc npm-packages/${{ matrix.package }}/
+        run: |
+          mv npm-package/.releaserc npm-packages/${{ matrix.package }}/
+          mv npm-packages/.npmrc npm-packages/${{ matrix.package }}/
 
       - name: Use Node.js
         uses: actions/setup-node@v3

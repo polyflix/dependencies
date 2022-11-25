@@ -1,0 +1,71 @@
+name: Docker image releaser
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  generate-matrix:
+    name: Generate matrix of updated images
+    runs-on: ubuntu-latest
+    outputs:
+      matrix-docker: ${{ steps.neo-image.outputs.matrix }}
+    steps:
+      - name: Generate matrix | Infrastructure
+        id: neo-image
+        uses: hellofresh/action-changed-files@v2
+        with:
+          pattern: docker-images/(?P<image>(?!.releaserc)[^/]+)
+
+  publish:
+    runs-on: ubuntu-22.04
+    needs: [generate-matrix]
+    permissions:
+      contents: read
+      packages: write
+    strategy:
+      max-parallel: 1
+      matrix: ${{ fromJson(needs.generate-matrix.outputs.matrix-docker) }}
+    if: ${{ fromJson(needs.generate-matrix.outputs.matrix-docker).include[0] }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: Semantic Release
+        uses: cycjimmy/semantic-release-action@v3
+        id: semver
+        with:
+          semantic_version: 19.0.5
+          extra_plugins: |
+            @semantic-release/changelog@6.0.1
+            @semantic-release/git
+          working_directory: docker-images
+        env:
+          IMAGE_NAME: ${{ matrix.image }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Log in to the Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata (tags, label) for Docker
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          images: ghcr.io/${{ matrix.image }}
+          flavor: ${{ inputs.docker-metadata-flavor }}
+
+      - name: Build an push image
+        uses: docker/build-push-action@v3
+        with:
+          context: docker-images/${{ matrix.image }}
+          push: true
+          tags: ghcr.io/${{ matrix.image }}:${{ steps.semver.outputs.new_release_version }}
+          labels: ${{ steps.meta.outputs.labels }}
