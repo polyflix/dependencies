@@ -1,0 +1,8 @@
+{
+  "type": "postgres",
+  "url": "$POSTGRES_URL",
+  "migrationsTableName": "migrations",
+  "migrations": ["./migrations/*.js"],
+  "cli": { "migrationsDir": "./migrations" },
+  "synchronize": false
+}
