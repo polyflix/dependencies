@@ -5,6 +5,10 @@ on:
       - main
 
 jobs:
+  # matrix strategy to build all packages
+  # duplicate the job for each package
+  # Action `action-changed-files` watchs for file changes in the package,
+  # then trigger a new version
   generate-matrix:
     name: Generate matrix of updated packages
     runs-on: ubuntu-latest
@@ -26,20 +30,12 @@ jobs:
     if: ${{ fromJson(needs.generate-matrix.outputs.matrix-npm).include[0] }}
     steps:
       - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
       - name: Move config to current package
         run: |
-          mv npm-package/.releaserc npm-packages/${{ matrix.package }}/
-          mv npm-packages/.npmrc npm-packages/${{ matrix.package }}/
-
-      - name: Use Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: "16"
-
-      - name: Install Node dependencies
-        run: |
-          cd npm-packages/${{ matrix.package }}
-          npm ci
+          mv npm-packages/.releaserc npm-packages/${{ matrix.package }}/
 
       - name: Semantic Release
         uses: cycjimmy/semantic-release-action@v3
@@ -52,4 +48,4 @@ jobs:
         env:
           PACKAGE_NAME: ${{ matrix.package }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
