@@ -10,7 +10,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "keywords": ["polyflix"],
+  "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
