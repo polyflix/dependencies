@@ -5,7 +5,7 @@
     "type": "git",
     "url": "https://github.com/polyflix/dependencies.git"
   },
-  "description": "",
+  "description": "wip",
   "main": "dist/index.js",
   "scripts": {
     "prepare": "npm run build",
