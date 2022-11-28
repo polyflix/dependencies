@@ -55,5 +55,5 @@ jobs:
           working_directory: ./npm-packages/${{ matrix.package }}
         env:
           PACKAGE_NAME: ${{ matrix.package }}
-          GITHUB_TOKEN: ${{ secrets.GH_COMMIT_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
