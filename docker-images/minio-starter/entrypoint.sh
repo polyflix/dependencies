@@ -1,8 +1,8 @@
 #!/bin/bash
 
 
-function check_connectivity {
-   result=$(curl -s ${MINIO_HOST})
+function check_connectivity_and_set_alias {
+   result=$(mc alias set minio ${MINIO_HOST} ${MINIO_ROOT_USER} ${MINIO_ROOT_PASSWORD} 2>&1)
 
    if [ "$?" -ne "0" ]; then
       return 1
@@ -18,9 +18,10 @@ function create_notify_event {
 
   local EXISTS=$(mc event list minio/${BUCKET_NAME} | wc -l | tr -d " ")
   if [ $EXISTS -eq 1 ]; then
-    echo "Event already exists, no need to create it "
+    echo "Event already exists, no need to create it"
   else
-    mc event add minio/videos arn:minio:sqs::PRIMARY:kafka --event ${EVENT_TRIGGER}
+    echo "RUN mc event add minio/${BUCKET_NAME} arn:minio:sqs::PRIMARY:kafka --event ${EVENT_TRIGGER}"
+    mc event add minio/${BUCKET_NAME} arn:minio:sqs::PRIMARY:kafka --event ${EVENT_TRIGGER}
   fi
  }
 
@@ -50,13 +51,11 @@ function bucket_exists {
 }
 
 function main() {
-  until check_connectivity
+  until check_connectivity_and_set_alias
   do
     echo "Waiting for MinIO to be up and running"
     sleep 1
   done
-
-mc alias set minio ${MINIO_HOST} minio minio123
 
   create_bucket videos
   create_bucket images
