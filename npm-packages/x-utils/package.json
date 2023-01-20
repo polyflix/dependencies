@@ -1,7 +1,7 @@
 {
   "name": "@polyflix/x-utils",
   "version": "1.8.2",
-  "description": "NestJS utilities for Polyflix from Polytech",
+  "description": "NestJS utilities for Polyflix",
   "main": "dist/index.js",
   "files": [
     "dist/**/*",
@@ -18,7 +18,10 @@
   "author": "",
   "license": "ISC",
   "peerDependencies": {
-    "axios": "^0.21.1"
+    "axios": "^0.21.1",
+    "@nestjs/common": "8.4.x",
+    "@nestjs/core": "8.4.x",
+    "@nestjs/config": "^2.0.0"
   },
   "devDependencies": {
     "@types/jest": "^26.0.23",
@@ -28,10 +31,12 @@
     "typescript": "^4.3.2"
   },
   "dependencies": {
-    "@nestjs/common": "^8.4.4",
-    "@nestjs/config": "^2.0.0",
-    "@nestjs/core": "^8.4.4",
-    "@nestjs/microservices": "^8.4.4",
+    "reflect-metadata": "0.1.13",
+    "@nestjs/common": "8.4.4",
+    "@ory/keto-client": "^0.10.0-alpha.0",
+    "@nestjs/config": "2.0.0",
+    "@nestjs/core": "8.4.4",
+    "@nestjs/microservices": "8.4.4",
     "express": "^4.18.1"
   }
 }

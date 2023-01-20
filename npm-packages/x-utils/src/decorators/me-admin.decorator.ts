@@ -9,10 +9,12 @@ const USER_ROLE_HEADER = "x-user-roles";
  *
  */
 export const IsAdmin = createParamDecorator(
-  (data: string, ctx: ExecutionContext): boolean => {
-    const request: Request = ctx.switchToHttp().getRequest();
-    const x_user_roles: string = request.headers[USER_ROLE_HEADER];
-    const roles = x_user_roles ? x_user_roles.split(",") : [];
-    return roles.findIndex((role) => role === "ADMINISTRATOR") !== -1;
-  }
+    (data: string, ctx: ExecutionContext): boolean => {
+        const request: Request = ctx.switchToHttp().getRequest();
+        const x_user_roles: string = request.headers[
+            USER_ROLE_HEADER
+        ] as string;
+        const roles = x_user_roles ? x_user_roles.split(",") : [];
+        return roles.findIndex((role) => role === "ADMINISTRATOR") !== -1;
+    }
 );
